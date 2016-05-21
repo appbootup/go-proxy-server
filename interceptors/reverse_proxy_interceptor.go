@@ -3,9 +3,12 @@ package interceptors
 import (
 	"net/http/httputil"
 	"github.com/GetSimpl/go-simpl/logger"
+	"github.com/GetSimpl/proxy-server/services"
 	"net/url"
 	"net/http"
 	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type ReverseProxyInterceptor struct {
@@ -28,7 +31,29 @@ func (proxyInterceptor *ReverseProxyInterceptor) ServeHTTP (w http.ResponseWrite
 	logRequest(r)
 	// Add Rules Engine here
 	// Async Updating of Redis for Rate Limiting and other logic
-	proxyInterceptor.Proxy.ServeHTTP(w, r)
+	rulesEngineChecker := services.NewRulesEngineChecker()
+	checker := services.IsIPValid(r, rulesEngineChecker)
+
+	status, errors := checker.Success()
+
+	fmt.Println(errors)
+
+	if status != true {
+		responseHash := make(map[string]interface{})
+		responseHash["success"] = false
+		responseHash["errors"] = checker.Errors
+		responseHash["api_version"] = 1.0
+		jsonResponse, err := json.Marshal(responseHash)
+		if err != nil {
+			logger.E(err)
+			panic(err)
+		}
+		w.Header().Set("Content-Type","application/json")
+		w.Write([]byte(jsonResponse))
+		return;
+	}else{
+		proxyInterceptor.Proxy.ServeHTTP(w, r)
+	}
 }
 
 func headersAsString(headers http.Header) string {
