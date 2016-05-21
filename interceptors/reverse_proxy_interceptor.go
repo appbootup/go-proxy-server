@@ -15,6 +15,7 @@ type ReverseProxyInterceptor struct {
 func NewProxy(urlString string) *ReverseProxyInterceptor{
 	uri, err := url.Parse(urlString)
 	if err != nil {
+		logger.E("Crashing! ")
 		panic("Invalid URL string for Target.")
 	}
 
@@ -24,9 +25,9 @@ func NewProxy(urlString string) *ReverseProxyInterceptor{
 
 
 func (proxyInterceptor *ReverseProxyInterceptor) ServeHTTP (w http.ResponseWriter, r *http.Request){
-	headers := headersAsString(r.Header)
-	logParams := "Request: " + r.RequestURI + " Headers:" + headers
-	logger.I(logParams)
+	logRequest(r)
+	// Add Rules Engine here
+	// Async Updating of Redis for Rate Limiting and other logic
 	proxyInterceptor.Proxy.ServeHTTP(w, r)
 }
 
@@ -41,4 +42,8 @@ func headersAsString(headers http.Header) string {
 	return headerParams.String()
 }
 
-
+func logRequest(r *http.Request){
+	headers := headersAsString(r.Header)
+	logParams := "Request: " + r.RequestURI + " Headers:" + headers
+	logger.I(logParams)
+}
