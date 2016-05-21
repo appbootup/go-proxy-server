@@ -1,0 +1,53 @@
+{
+	"ImportPath": "github.com/GetSimpl/proxy-server",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v70",
+	"Deps": [
+		{
+			"ImportPath": "github.com/GetSimpl/go-simpl/db",
+			"Rev": "864ff7b1bae1dd98b359ed2122eed9819fcd8379"
+		},
+		{
+			"ImportPath": "github.com/GetSimpl/go-simpl/logger",
+			"Rev": "864ff7b1bae1dd98b359ed2122eed9819fcd8379"
+		},
+		{
+			"ImportPath": "github.com/Sirupsen/logrus",
+			"Comment": "v0.10.0-16-gcd7d1bb",
+			"Rev": "cd7d1bbe41066b6c1f19780f895901052150a575"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.0-12-g57c7212",
+			"Rev": "57c72125b3087e1ed02c16f23a1f381cde3aaf2c"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Rev": "3272df6c21d04180007eb3349844c89a3856bc25"
+		},
+		{
+			"ImportPath": "github.com/lib/pq",
+			"Comment": "go1.0-cutoff-96-gee1442b",
+			"Rev": "ee1442bda7bd1b6a84e913bdb421cb1874ec629d"
+		},
+		{
+			"ImportPath": "github.com/lib/pq/oid",
+			"Comment": "go1.0-cutoff-96-gee1442b",
+			"Rev": "ee1442bda7bd1b6a84e913bdb421cb1874ec629d"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "d4feaf1a7e61e1d9e79e6c4e76c6349e9cab0a03"
+		},
+		{
+			"ImportPath": "gopkg.in/airbrake/gobrake.v2",
+			"Comment": "v2.0.6",
+			"Rev": "31c8ff1fb8b79a6947e6565e9a6df535f98a6b94"
+		},
+		{
+			"ImportPath": "gopkg.in/polds/logrus-papertrail-hook.v2",
+			"Comment": "v2.2",
+			"Rev": "dfa4a9f9a7b1d4cced6f29b140a767162a2dceaa"
+		}
+	]
+}
