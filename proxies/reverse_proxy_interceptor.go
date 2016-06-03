@@ -1,4 +1,4 @@
-package interceptors
+package proxies
 
 import (
 	"net/http/httputil"
@@ -33,9 +33,7 @@ func (proxyInterceptor *ReverseProxyInterceptor) ServeHTTP (w http.ResponseWrite
 	// Async Updating of Redis for Rate Limiting and other logic
 	rulesEngineChecker := services.NewRulesEngineChecker()
 	checker := services.IsIPValid(r, rulesEngineChecker)
-
 	status, errors := checker.Success()
-
 	fmt.Println(errors)
 
 	if status != true {
